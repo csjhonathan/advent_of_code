@@ -44,16 +44,6 @@ const checkMustBeSecure = (arr: number[], current_index = 0) => {
   return checkMustBeSecure(arr, current_index + 1)
 }
 
-const sla = (arr1: Array<Array<number>>) => {
-  const security_lists = []
-
-  for (const list of arr1){
-    if(checkMustBeSecure(list)){
-      security_lists.push(list)
-    }
-  }
-
-  return security_lists.length
-} 
+const sla = (arr1: Array<Array<number>>) => arr1.filter(list => checkMustBeSecure(list)).length
 
 console.log(sla(input2))
