@@ -45,26 +45,14 @@ const checkMustBeSecure = (arr: number[], current_index = 0) => {
 }
 
 const sla = (arr1: Array<Array<number>>) => {
-  const non_security_lists = []
   const security_lists = []
-  const confirmed_non_security_lists = [];
 
   for (const list of arr1){
-    if(isListSecure(list)){
+    if(checkMustBeSecure(list)){
       security_lists.push(list)
-    } else {
-      non_security_lists.push(list)
     }
   }
 
-  for (const list of non_security_lists) {
-    if (checkMustBeSecure(list)) {
-      security_lists.push(list)
-    } else {
-      confirmed_non_security_lists.push(list)
-    }
-  }
-  
   return security_lists.length
 } 
 
