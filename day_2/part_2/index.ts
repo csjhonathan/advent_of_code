@@ -23,14 +23,6 @@ const isListSecure = (arr:number[]) => {
   return !hasSomeOutOfLimit(arr) && hasAOrder(arr)
 }
 
-// const isCompatible = (n1:number, n2:number, order:string) => {
-//   if ( !n2 ) return true
-//   if ( n1 === n2) return false
-
-//   const is_orderned = order === "asc"  ? n1 < n2 : n1 > n2
-//   return Math.abs(n1 - n2) <= 3 && is_orderned
-// }
-
 const hasSomeOutOfLimit = (list:number[]) => {
   for (let i = 0; i < list.length; i++) {
     const current_el = list[i];
@@ -42,9 +34,20 @@ const hasSomeOutOfLimit = (list:number[]) => {
   return false
 }
 
+const checkMustBeSecure = (arr: number[], current_index = 0) => {
+  if (current_index > arr.length) return false;
+
+  const may_secure_arr = arr.filter((_, index) => index !== current_index)
+
+  if (isListSecure(may_secure_arr)) return true
+
+  return checkMustBeSecure(arr, current_index + 1)
+}
+
 const sla = (arr1: Array<Array<number>>) => {
   const non_security_lists = []
   const security_lists = []
+  const confirmed_non_security_lists = [];
 
   for (const list of arr1){
     if(isListSecure(list)){
@@ -53,8 +56,16 @@ const sla = (arr1: Array<Array<number>>) => {
       non_security_lists.push(list)
     }
   }
+
+  for (const list of non_security_lists) {
+    if (checkMustBeSecure(list)) {
+      security_lists.push(list)
+    } else {
+      confirmed_non_security_lists.push(list)
+    }
+  }
   
   return security_lists.length
 } 
 
-console.log(sla(input1))
+console.log(sla(input2))
