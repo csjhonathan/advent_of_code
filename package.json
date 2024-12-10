@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "day_2/part_2/index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "day-part-1": "node -e \"require('child_process').execSync('npx ts-node-dev day_' + process.argv[1] + '/part_1/index.ts', { stdio: 'inherit' })\"",
+    "day-part-2": "node -e \"require('child_process').execSync('npx ts-node-dev day_' + process.argv[1] + '/part_2/index.ts', { stdio: 'inherit' })\""
   },
   "keywords": [],
   "author": "",
