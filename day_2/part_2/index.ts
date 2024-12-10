@@ -35,6 +35,8 @@ const hasSomeOutOfLimit = (list:number[]) => {
 }
 
 const checkMustBeSecure = (arr: number[], current_index = 0) => {
+  if (isListSecure(arr)) return true
+
   if (current_index > arr.length) return false;
 
   const may_secure_arr = arr.filter((_, index) => index !== current_index)
@@ -46,4 +48,4 @@ const checkMustBeSecure = (arr: number[], current_index = 0) => {
 
 const sla = (arr1: Array<Array<number>>) => arr1.filter(list => checkMustBeSecure(list)).length
 
-console.log(sla(input2))
+console.log(sla(input1))
