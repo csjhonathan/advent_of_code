@@ -1,17 +1,34 @@
-import { string1 } from "../input";
+import { string1, string_teste } from "../input";
 
-console.log(((str: string) => {
-  let sum = 0
-  let can_mult = true
-  const listMuls = str.match(/(?:mul\(([a-zA-Z0-9]{1,3}),([a-zA-Z0-9]{1,3})\)|don'?t\(\)|do\(\))/g)
-  listMuls.forEach(aaaaa => {
-    if(aaaaa === "do()") can_mult = true
-    if(aaaaa === "don't()") can_mult = false
-    if(aaaaa.includes("mul") && can_mult){
-      const blams = aaaaa.replace("mul(","").replace(")","").split(",");
-      const mult = +blams[0] * +blams[1]
-      sum += mult
+// const isValidPair = (a: string | undefined, b: string | undefined) => a && b && ![a, b].includes("A") && ![a, b].includes("X") && a !== b;
+
+const hasXmas = (i: number, j: number, matriz: string[][]) => {
+  let catches = 0
+  const supEsq = matriz[i-1]?.[j-1]
+  const supDir = matriz[i-1]?.[j+1]
+  const infEsq = matriz[i+1]?.[j-1]
+  const infDir = matriz[i+1]?.[j+1]
+
+  // const oposto1 = isValidPair(supEsq, infDir);
+  // const oposto2 = isValidPair(supDir, infEsq);
+
+  // if(oposto1 && oposto2) catches++
+
+  if((supEsq === "M" && infDir === "S" || supEsq === "S" && infDir === "M") && (supDir === "M" && infEsq === "S" || supDir === "S" && infEsq === "M")) catches++
+
+  return catches
+}
+
+console.log(((matriz: string[][]) => {
+  let bingo = 0
+  for (let i = 0; i < matriz.length; i++) {
+    const line = matriz[i];
+    for (let j = 0; j < line.length; j++) {
+      const char = line[j];
+      if (char === "A") {
+        bingo+= hasXmas(i, j, matriz)
+      }
     }
-  })
-  return sum
-})(string1))
+  }
+  return bingo
+})(string_teste))
